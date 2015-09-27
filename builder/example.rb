@@ -34,15 +34,19 @@ module Builder
     # else it raises a NotImplemented error
     class EmailBuilder
       attr_accessor :email
+
       def initialize
         @email = Email.new
       end
+
       def set_subject
         raise NotImplementedError, "#{self.class.name} does not implement set_subject()"
       end
+
       def set_body
         raise NotImplementedError, "#{self.class.name} does not implement set_body()"
       end
+
       def set_footer
         raise NotImplementedError, "#{self.class.name} does not implement set_footer()"
       end
@@ -58,10 +62,12 @@ module Builder
         content = "dark #{content}"
         @email.subject = content
       end
+
       def set_body(content)
         content = "dark #{content}"
         @email.body = content
       end
+
       def set_footer(content)
         content = "dark #{content}"
         @email.footer = content
@@ -78,10 +84,12 @@ module Builder
         content = "white #{content}"
         @email.subject = content
       end
+
       def set_body(content)
         content = "white #{content}"
         @email.body = content
       end
+
       def set_footer(content)
         content = "white #{content}"
         @email.footer = content
@@ -95,6 +103,7 @@ module Builder
       def initialize(builder)
         @builder = builder
       end
+
       def create_email
         @builder.set_subject('welcome')
         @builder.set_body('body')
@@ -109,6 +118,7 @@ module Builder
       def initialize(builder)
         @builder = builder
       end
+
       def create_email
         @builder.set_subject('alert')
         @builder.set_body('body')
@@ -123,6 +133,7 @@ module Builder
     # but we'll just build an Email for simplicity's sake
     class Email
       attr_accessor :subject, :body, :footer
+
       def to_s
         [subject, body, footer].join(', ')
       end
@@ -137,12 +148,18 @@ module Builder
         welcome_email.create_email
         puts theme.email.to_s
       end
+
       def send_alert_mail(theme)
         alert_email = AlertEmail.new(theme)
         alert_email.create_email
         puts theme.email.to_s
       end
     end
+
+    dark_theme = DarkEmailBuilder.new
+    application = Application.new
+    application.send_welcome_mail dark_theme
+    application.send_alert_mail dark_theme
 
   end
 end
