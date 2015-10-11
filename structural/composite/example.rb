@@ -75,7 +75,7 @@ module Composite
     # that is built from subcomponents in a manner consistent with the law of demeter.
     # Worded a little differently, composites are just complex tasks made up of subtasks.
 
-    # Obie says that the key point to remember about composite objects
+    # Key point to remember about composite objects
     # is that the tree may be arbitrarily deep.
     class MakePhone < Composite
       def initialize
